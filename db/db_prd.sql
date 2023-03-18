@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2023 at 10:47 AM
+-- Generation Time: Mar 18, 2023 at 08:37 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -21,6 +21,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_prd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `d_prod`
+--
+
+CREATE TABLE `d_prod` (
+  `id_prod_d` int(11) NOT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `warna` varchar(50) DEFAULT NULL,
+  `id_product_h` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `d_prod`
+--
+
+INSERT INTO `d_prod` (`id_prod_d`, `qty`, `price`, `warna`, `id_product_h`) VALUES
+(1, 10, 3000, 'red', 1),
+(2, 30, 4000, 'blue', 2),
+(3, 20, 7000, 'white', 3),
+(4, 0, NULL, NULL, NULL),
+(5, 30, 4000, 'purple', 1);
 
 -- --------------------------------------------------------
 
@@ -863,7 +888,12 @@ INSERT INTO `prds` (`id`, `kode_barang`, `nama_barang`) VALUES
 (38, 'kd002', 'pencil'),
 (39, 'kd003', 'botol'),
 (40, 'kd004', 'hp'),
-(41, 'kd005', 'mouse');
+(41, 'kd005', 'mouse'),
+(42, 'kd001', 'pulpen'),
+(43, 'kd002', 'pencil'),
+(44, 'kd003', 'botol'),
+(45, 'kd004', 'hp'),
+(46, 'kd005', 'mouse');
 
 -- --------------------------------------------------------
 
@@ -893,6 +923,28 @@ CREATE TABLE `product_header` (
   `total_qty` int(11) NOT NULL,
   `created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prod_h`
+--
+
+CREATE TABLE `prod_h` (
+  `id_product_h` int(11) NOT NULL,
+  `kode_product` varchar(20) DEFAULT NULL,
+  `nama_product` varchar(30) DEFAULT NULL,
+  `deskripsi_product` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `prod_h`
+--
+
+INSERT INTO `prod_h` (`id_product_h`, `kode_product`, `nama_product`, `deskripsi_product`) VALUES
+(1, 'p001', 'mouse', 'mouse bagus'),
+(2, 'p002', 'laptop', 'laptop bagus'),
+(3, 'p003', 'handphone', 'hanphone bagus');
 
 -- --------------------------------------------------------
 
@@ -943,6 +995,12 @@ INSERT INTO `wilayah` (`id`, `id_negara`, `id_provinsi`, `id_kota`) VALUES
 --
 
 --
+-- Indexes for table `d_prod`
+--
+ALTER TABLE `d_prod`
+  ADD PRIMARY KEY (`id_prod_d`);
+
+--
 -- Indexes for table `kota`
 --
 ALTER TABLE `kota`
@@ -979,6 +1037,12 @@ ALTER TABLE `product_header`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `prod_h`
+--
+ALTER TABLE `prod_h`
+  ADD PRIMARY KEY (`id_product_h`);
+
+--
 -- Indexes for table `provinsi`
 --
 ALTER TABLE `provinsi`
@@ -993,6 +1057,12 @@ ALTER TABLE `wilayah`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `d_prod`
+--
+ALTER TABLE `d_prod`
+  MODIFY `id_prod_d` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `kota`
@@ -1010,7 +1080,7 @@ ALTER TABLE `negara`
 -- AUTO_INCREMENT for table `prds`
 --
 ALTER TABLE `prds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `product_detail`
@@ -1023,6 +1093,12 @@ ALTER TABLE `product_detail`
 --
 ALTER TABLE `product_header`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `prod_h`
+--
+ALTER TABLE `prod_h`
+  MODIFY `id_product_h` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `provinsi`
