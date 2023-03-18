@@ -158,6 +158,37 @@
                     </a>
                   </li>
                 </ul>
+
+
+                <ul class="nav nav-treeview ">
+                  <li class="nav-item">
+                    <a style="color: RGB(245, 245, 245);" href="<?= site_url('data_table_childz') ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p style="color: RGB(245, 245, 245);">Data Table Child</p>
+                    </a>
+                  </li>
+                </ul>
+
+
+                <ul class="nav nav-treeview ">
+                  <li class="nav-item">
+                    <a style="color: RGB(245, 245, 245);" href="<?= site_url('baca_csv') ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p style="color: RGB(245, 245, 245);">Csv Multiple</p>
+                    </a>
+                  </li>
+                </ul>
+
+
+                <ul class="nav nav-treeview ">
+                  <li class="nav-item">
+                    <a style="color: RGB(245, 245, 245);" href="<?= site_url('datatableschilds') ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p style="color: RGB(245, 245, 245);">Data Table Childs</p>
+                    </a>
+                  </li>
+                </ul>
+
                </li>
               </li>
 
@@ -242,25 +273,6 @@
   <!-- Page specific script -->
 
 
-  <script>
-    $(function() {
-      $("#example1").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        // "buttons": ["copy", "csv"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
 
 <script>
  $(document).ready(function() {
@@ -390,7 +402,7 @@
   </script>
 
 
-  <script>
+  <!-- <script>
     $(function() {
       // Summernote
       $('#summernote').summernote()
@@ -401,7 +413,7 @@
         theme: "monokai"
       });
     })
-  </script>
+  </script> -->
 
 
   <script>

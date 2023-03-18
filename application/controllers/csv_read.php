@@ -76,6 +76,7 @@ class csv_read extends CI_Controller {
             }
             //  var_dump($arrs);
             $this->db->insert_batch('prds',$arrs);
+            
         fclose($handle);
   } 
     }
