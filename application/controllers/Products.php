@@ -52,6 +52,7 @@ class Products extends CI_Controller {
             'kode_product' => $value,
             'nama_product' => $this->input->post('nama_product')[$key]
           ];
+          
          }
          foreach ($arr as $key => $data) {
           $savedata = [

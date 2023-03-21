@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/backend/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/toastmaker/dist/toastmaker.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/backend/dist/css/adminlte.min.css">
 
@@ -18,6 +19,7 @@
   <link rel="stylesheet" href="<?= base_url() ?>assets/backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
   <link rel="stylesheet" href="<?= base_url() ?>assets/backend/plugins/summernote/summernote-bs4.min.css">
+  <script type="text/javascript" src="https://unpkg.com/toastmaker/dist/toastmaker.min.js"></script>
 
 
   <link href="<?= base_url() ?>assets/backend/vendors/sweetalert2/sweetalert2.min.css" rel="stylesheet">
@@ -190,7 +192,53 @@
                 </ul>
 
                </li>
+
+
+
+
+
+               <li class="nav-item">
+                <a style="color: RGB(245, 245, 245);" href="#" class="nav-link">
+                  <i class="nav-icon fas fa-folder-plus"></i>
+                  <p style="color: RGB(245, 245, 245);">
+                    Modul
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+
+                <ul class="nav nav-treeview ">
+                  <li class="nav-item">
+                    <a style="color: RGB(245, 245, 245);" href="<?= site_url('Barang') ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p style="color: RGB(245, 245, 245);">Barang</p>
+                    </a>
+                  </li>
+                </ul>
+
+                <ul class="nav nav-treeview ">
+                  <li class="nav-item">
+                    <a style="color: RGB(245, 245, 245);" href="<?= site_url('purchase') ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p style="color: RGB(245, 245, 245);">purchase</p>
+                    </a>
+                  </li>
+                </ul>
+
+
+                <ul class="nav nav-treeview ">
+                  <li class="nav-item">
+                    <a style="color: RGB(245, 245, 245);" href="<?= site_url('Purc') ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p style="color: RGB(245, 245, 245);">Purc</p>
+                    </a>
+                  </li>
+                </ul>
+
               </li>
+              </li>
+
+
+             
 
 
               

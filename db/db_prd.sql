@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 08:37 AM
+-- Generation Time: Mar 21, 2023 at 09:27 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -21,6 +21,106 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_prd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang_header`
+--
+
+CREATE TABLE `barang_header` (
+  `id` int(11) NOT NULL,
+  `kode_barang` varchar(100) NOT NULL,
+  `nama_barang` varchar(128) NOT NULL,
+  `harga_total` int(11) NOT NULL,
+  `qty_total` int(11) NOT NULL,
+  `keterangan` varchar(100) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `barang_header`
+--
+
+INSERT INTO `barang_header` (`id`, `kode_barang`, `nama_barang`, `harga_total`, `qty_total`, `keterangan`, `created`) VALUES
+(2, 'BRG00001', 'tes satu', 0, 0, ' tes satu  tes satu', '2023-03-20 02:58:41');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `databeli`
+--
+
+CREATE TABLE `databeli` (
+  `no_nota` char(10) DEFAULT '',
+  `kode_brg` char(20) DEFAULT '',
+  `qty_pesan` double(8,2) DEFAULT 0.00,
+  `qty_terima` double(8,2) DEFAULT 0.00,
+  `harga_beli` double(12,4) DEFAULT 0.0000,
+  `discount` double(12,4) DEFAULT 0.0000,
+  `diskonrp` double(12,4) DEFAULT 0.0000,
+  `subtotal` double(12,2) DEFAULT 0.00,
+  `stock` double(12,2) DEFAULT 0.00,
+  `lotno` char(50) DEFAULT '',
+  `expired` date DEFAULT NULL,
+  `tglterima` date DEFAULT NULL,
+  `kdgudang` char(10) DEFAULT '',
+  `satuan` char(20) DEFAULT '',
+  `createddate` datetime DEFAULT current_timestamp(),
+  `updatedate` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `updateby` char(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dbrg`
+--
+
+CREATE TABLE `dbrg` (
+  `id` int(11) NOT NULL,
+  `nama_brg` varchar(100) NOT NULL,
+  `no_nota` varchar(100) NOT NULL,
+  `harga_satuan` int(11) NOT NULL,
+  `qty` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dbrg`
+--
+
+INSERT INTO `dbrg` (`id`, `nama_brg`, `no_nota`, `harga_satuan`, `qty`) VALUES
+(9, 'tes', 'PB00000001', 1000, 4),
+(10, 'tes', 'PB00000001', 1000, 4),
+(11, 'tes2', 'PB00000002', 1000, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail`
+--
+
+CREATE TABLE `detail` (
+  `id` int(11) NOT NULL,
+  `no_nota` varchar(100) NOT NULL,
+  `kode_brg` varchar(100) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `qty` double DEFAULT NULL,
+  `harga` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detail`
+--
+
+INSERT INTO `detail` (`id`, `no_nota`, `kode_brg`, `nama`, `qty`, `harga`) VALUES
+(1, 'PB00000001', 'ALCOHOL001', 'ETHIL ALCOHOL 70 %', 10, 1000),
+(2, 'PB00000001', 'ALUM001', 'ALUMINIUM WIRE N95 5MM', 10, 1000),
+(3, 'PB00000003', 'ALUMALSW002', 'ALUMINIUM FOIL ALCOHOL SWAB - ANARA ( LOKAL )', 5, 4000),
+(4, 'PB00000003', 'ANALSWAB001', 'ANARA ALCOHOL SWAB', 10, 3000),
+(5, 'PB00000004', 'ALCOHOL001', 'ETHIL ALCOHOL 70 %', 5, 5000),
+(6, 'PB00000004', 'ALUM001', 'ALUMINIUM WIRE N95 5MM', 5, 1000),
+(7, 'PB00000004', 'ALUMALSW001', 'ALUMINIUM FOIL ALCOHOL SWAB - ANARA', 10, 6000);
 
 -- --------------------------------------------------------
 
@@ -50,6 +150,30 @@ INSERT INTO `d_prod` (`id_prod_d`, `qty`, `price`, `warna`, `id_product_h`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `header`
+--
+
+CREATE TABLE `header` (
+  `no_nota` varchar(11) NOT NULL,
+  `no_po` varchar(11) DEFAULT NULL,
+  `kode_supl` char(10) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
+  `total_qty` int(11) DEFAULT NULL,
+  `total_harga` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `header`
+--
+
+INSERT INTO `header` (`no_nota`, `no_po`, `kode_supl`, `tanggal`, `total_qty`, `total_harga`) VALUES
+('PB00000001', '12121', '001', '2023-03-21', 20, '20000.00'),
+('PB00000003', '4444', '001', '2023-03-21', 15, '50000.00'),
+('PB00000004', '5555', '002', '2023-03-21', 20, '90000.00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kota`
 --
 
@@ -72,6 +196,117 @@ INSERT INTO `kota` (`id`, `id_provinsi`, `nama`) VALUES
 (7, 1, 'bogor'),
 (8, 1, 'bandung'),
 (9, 3, 'wash');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mbarang`
+--
+
+CREATE TABLE `mbarang` (
+  `kode_brg` char(20) NOT NULL,
+  `nama` char(250) DEFAULT NULL,
+  `satuan` char(20) DEFAULT NULL,
+  `hjual` double(12,2) DEFAULT NULL,
+  `hbeli` double(12,4) DEFAULT NULL,
+  `stock_min` double(12,2) DEFAULT NULL,
+  `rop` double(12,2) DEFAULT NULL,
+  `eoq` double(12,2) DEFAULT NULL,
+  `kode_klp` char(10) DEFAULT '',
+  `kons` int(11) DEFAULT 2,
+  `stock` double(12,2) DEFAULT 0.00,
+  `stockawal` double(12,2) DEFAULT 0.00,
+  `noakun_persediaan` char(20) NOT NULL DEFAULT '',
+  `noakun_penjualan` char(20) NOT NULL DEFAULT '',
+  `noakun_returnjual` char(20) NOT NULL DEFAULT '',
+  `noakun_diskonjual` char(20) NOT NULL DEFAULT '',
+  `noakun_terkirim` char(20) NOT NULL DEFAULT '',
+  `noakun_hpp` char(20) NOT NULL DEFAULT '',
+  `noakun_returnbeli` char(20) NOT NULL DEFAULT '',
+  `noakun_belumtertagih` char(20) NOT NULL DEFAULT '',
+  `noijin` char(50) NOT NULL DEFAULT '',
+  `tgledardari` date NOT NULL,
+  `tgledarsampai` date NOT NULL,
+  `length` double(10,2) NOT NULL DEFAULT 0.00,
+  `width` double(10,2) NOT NULL DEFAULT 0.00,
+  `height` double(10,2) NOT NULL DEFAULT 0.00,
+  `qtybox` double(10,2) NOT NULL DEFAULT 1.00,
+  `qtypcs` double(10,2) NOT NULL DEFAULT 1.00,
+  `rumus` char(1) DEFAULT NULL,
+  `berat` double(10,2) NOT NULL DEFAULT 0.00,
+  `jenisstock` int(11) DEFAULT 1 COMMENT '1  = FG, 2 = RM, 3 = OTHER',
+  `Active_status` int(11) DEFAULT 1 COMMENT '1 = Active, 2 = Inactive',
+  `min_stock` int(11) DEFAULT 0,
+  `bufferstock` double(10,2) DEFAULT 0.00,
+  `upahborongan` double(10,2) DEFAULT 0.00,
+  `updateby` char(20) DEFAULT NULL,
+  `upddatedate` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `createddate` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mbarang`
+--
+
+INSERT INTO `mbarang` (`kode_brg`, `nama`, `satuan`, `hjual`, `hbeli`, `stock_min`, `rop`, `eoq`, `kode_klp`, `kons`, `stock`, `stockawal`, `noakun_persediaan`, `noakun_penjualan`, `noakun_returnjual`, `noakun_diskonjual`, `noakun_terkirim`, `noakun_hpp`, `noakun_returnbeli`, `noakun_belumtertagih`, `noijin`, `tgledardari`, `tgledarsampai`, `length`, `width`, `height`, `qtybox`, `qtypcs`, `rumus`, `berat`, `jenisstock`, `Active_status`, `min_stock`, `bufferstock`, `upahborongan`, `updateby`, `upddatedate`, `createddate`) VALUES
+('ALCOHOL001', 'ETHIL ALCOHOL 70 %', 'LITER', 0.00, 12612.6126, 0.00, 0.00, 0.00, 'K01', 2, 2982.00, 0.00, '113.00.001', '400.00.001', '400.01.001', '400.01.002', '1105-999', '410.00.001', '1105-001', '2106', '-', '2021-10-28', '0000-00-00', 0.00, 0.00, 0.00, 1.00, 1.00, '/', 0.00, 2, 1, 0, 0.00, 0.00, 'ADMIN', '2022-11-24 15:45:19', '2022-07-11 11:55:30'),
+('ALUM001', 'ALUMINIUM WIRE N95 5MM', 'PCS', 0.00, 108.7500, 0.00, 0.00, 0.00, 'K01', 2, 515102.00, 0.00, '113.00.001', '400.00.001', '400.01.001', '400.01.002', '1105-999', '410.00.001', '1105-001', '2106', '-', '2021-02-27', '0000-00-00', 0.00, 0.00, 0.00, 1.00, 1.00, '/', 0.00, 2, 0, 0, 0.00, 0.00, 'PURCHASE', '2022-12-09 15:54:00', '2022-07-11 11:55:30'),
+('ALUMALSW001', 'ALUMINIUM FOIL ALCOHOL SWAB - ANARA', 'KG', 0.00, 15000.0000, 0.00, 0.00, 0.00, 'K01', 2, 2274.30, 0.00, '113.00.001', '400.00.001', '400.01.001', '400.01.002', '1105-999', '410.00.001', '1105-001', '2106', '-', '2022-03-08', '0000-00-00', 0.00, 0.00, 0.00, 1.00, 1.00, '/', 0.00, 2, 1, 0, 0.00, 0.00, 'PURCHASE', '2022-11-25 14:52:52', '2022-07-11 11:55:30'),
+('ALUMALSW002', 'ALUMINIUM FOIL ALCOHOL SWAB - ANARA ( LOKAL )', 'ROLL', 0.00, 2880000.0000, 0.00, 0.00, 0.00, 'K01', 2, 10.00, 0.00, '113.00.001', '112.00.001', '400.01.001', '400.01.002', '1105-999', '410.00.001', '1105-001', '2106', '', '0000-00-00', '0000-00-00', 0.00, 0.00, 0.00, 1.00, 1.00, '', 0.00, 2, 1, 0, 0.00, 0.00, 'PURCHASE', '2022-10-28 10:05:47', '2022-09-01 14:59:54'),
+('ANALSWAB001', 'ANARA ALCOHOL SWAB', 'BOX', 0.00, 0.0000, 0.00, 0.00, 0.00, 'K03', 2, -29976.00, 0.00, '113.00.001', '400.00.001', '400.01.001', '400.01.002', '1105-999', '410.00.001', '1105-001', '2106', '-', '2022-02-15', '0000-00-00', 0.00, 0.00, 0.00, 1.00, 1.00, '/', 0.00, 1, 1, 0, 0.00, 0.00, NULL, '2022-12-19 16:13:33', '2022-07-11 11:55:30');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `msupl`
+--
+
+CREATE TABLE `msupl` (
+  `kode_supl` char(10) NOT NULL,
+  `nama` char(200) DEFAULT '',
+  `alamat` char(250) DEFAULT '',
+  `kota` char(150) DEFAULT '',
+  `kode_pos` char(30) DEFAULT '',
+  `telp` char(50) DEFAULT '',
+  `telp_lain` char(50) DEFAULT '',
+  `fax` char(50) DEFAULT '',
+  `email` char(50) DEFAULT '',
+  `website` char(50) DEFAULT '',
+  `lama_do` int(11) DEFAULT 0,
+  `cara_bayar` char(50) DEFAULT '',
+  `contact` char(50) DEFAULT '',
+  `hp_contact` char(50) DEFAULT '',
+  `lain_lain` char(250) DEFAULT '',
+  `kategori` char(50) DEFAULT '',
+  `katakunci` char(50) DEFAULT '',
+  `khusus` int(11) DEFAULT NULL,
+  `bank` char(50) DEFAULT '',
+  `rek` char(50) DEFAULT '',
+  `term` int(11) DEFAULT 0,
+  `saldohutang` int(11) DEFAULT 0,
+  `npwp` char(30) DEFAULT '',
+  `diskon` double(12,2) DEFAULT 0.00,
+  `tglsaldohutang` date DEFAULT NULL,
+  `matauang` char(10) DEFAULT '',
+  `noijin` char(50) DEFAULT NULL,
+  `tgledardari` date DEFAULT NULL,
+  `tgledarsampai` date DEFAULT NULL,
+  `Pjtsarana` char(50) DEFAULT NULL,
+  `NoIjinpjt` char(50) DEFAULT NULL,
+  `noakun` char(50) DEFAULT '',
+  `salesperson` char(50) DEFAULT '',
+  `updatedate` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `createddate` datetime DEFAULT current_timestamp(),
+  `updateby` char(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `msupl`
+--
+
+INSERT INTO `msupl` (`kode_supl`, `nama`, `alamat`, `kota`, `kode_pos`, `telp`, `telp_lain`, `fax`, `email`, `website`, `lama_do`, `cara_bayar`, `contact`, `hp_contact`, `lain_lain`, `kategori`, `katakunci`, `khusus`, `bank`, `rek`, `term`, `saldohutang`, `npwp`, `diskon`, `tglsaldohutang`, `matauang`, `noijin`, `tgledardari`, `tgledarsampai`, `Pjtsarana`, `NoIjinpjt`, `noakun`, `salesperson`, `updatedate`, `createddate`, `updateby`) VALUES
+('001', 'PT AB', 'sdsdsdsdsdds', 'jkt', '', '089876543', '', '', '', '', 0, '', '', '', '', '', '', NULL, 'bca', '', 0, 0, '', 0.00, NULL, '', NULL, NULL, NULL, NULL, NULL, '', '', '2023-03-20 11:18:05', '2023-03-20 11:14:40', NULL),
+('002', 'PT CA', 'BDG', 'BDG', '', '0898756789', '', '', '', '', 0, '', '', '', '', '', '', NULL, 'BCA', '', 0, 0, '', 0.00, NULL, '', NULL, NULL, NULL, NULL, NULL, '', '', NULL, '2023-03-20 11:22:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -870,6 +1105,54 @@ INSERT INTO `negara` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notabeli`
+--
+
+CREATE TABLE `notabeli` (
+  `id` int(11) NOT NULL,
+  `kdproyek` char(10) DEFAULT NULL,
+  `no_nota` char(10) NOT NULL DEFAULT '',
+  `no_nota_pesan` char(10) NOT NULL DEFAULT '',
+  `tanggal` date DEFAULT NULL,
+  `kode_supl` char(20) DEFAULT '',
+  `no_faktur` char(50) DEFAULT '',
+  `no_fp` char(50) DEFAULT '',
+  `nilaitotal` decimal(12,2) DEFAULT 0.00,
+  `potcash` decimal(12,2) DEFAULT 0.00,
+  `pdiscount` decimal(12,2) DEFAULT 0.00,
+  `nilaireturn` decimal(12,2) DEFAULT 0.00,
+  `jmldp` decimal(12,2) DEFAULT 0.00,
+  `bayar` decimal(12,2) DEFAULT 0.00,
+  `jatuhtempo` date DEFAULT '0000-00-00',
+  `dpp` decimal(12,2) DEFAULT 0.00,
+  `ppn` decimal(12,2) DEFAULT 0.00,
+  `dppppn` decimal(12,2) DEFAULT 0.00,
+  `biayakirim` decimal(12,2) DEFAULT 0.00,
+  `totalharga` decimal(12,2) DEFAULT 0.00,
+  `sisa` decimal(12,2) DEFAULT 0.00,
+  `cara_bayar` char(30) DEFAULT '',
+  `tempo` int(11) DEFAULT 0,
+  `jenisppn` int(11) DEFAULT 0,
+  `kirim_via` char(50) DEFAULT '',
+  `terimaoleh` char(50) DEFAULT '',
+  `tgl_terima` date DEFAULT NULL,
+  `tgl_lunas` date DEFAULT NULL,
+  `tgl_fp` date DEFAULT NULL,
+  `status` char(1) DEFAULT '0',
+  `catatan` char(250) DEFAULT '',
+  `alamatkirim` char(250) DEFAULT '',
+  `no_po` char(50) DEFAULT NULL,
+  `no_invoice_vendor` varchar(30) DEFAULT '',
+  `tgl_po` date DEFAULT NULL,
+  `kdgudang` char(10) DEFAULT NULL,
+  `updateby` char(20) DEFAULT NULL,
+  `updatedate` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `createddate` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `prds`
 --
 
@@ -972,6 +1255,31 @@ INSERT INTO `provinsi` (`id`, `id_negara`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `svbrg`
+--
+
+CREATE TABLE `svbrg` (
+  `id` int(11) NOT NULL,
+  `no_nota` varchar(100) NOT NULL,
+  `no_po` varchar(128) NOT NULL,
+  `supplier` varchar(128) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `harga_satuan` int(11) NOT NULL,
+  `total_qty` int(11) NOT NULL,
+  `total_harga` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `svbrg`
+--
+
+INSERT INTO `svbrg` (`id`, `no_nota`, `no_po`, `supplier`, `tanggal`, `harga_satuan`, `total_qty`, `total_harga`) VALUES
+(7, 'PB00000001', '12121', '001', '2023-03-20 00:00:00', 1000, 4, 4000),
+(9, 'PB00000002', '1234', '002', '2023-03-20 00:00:00', 1000, 5, 5000);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wilayah`
 --
 
@@ -995,16 +1303,61 @@ INSERT INTO `wilayah` (`id`, `id_negara`, `id_provinsi`, `id_kota`) VALUES
 --
 
 --
+-- Indexes for table `barang_header`
+--
+ALTER TABLE `barang_header`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `databeli`
+--
+ALTER TABLE `databeli` ADD FULLTEXT KEY `no_nota` (`no_nota`);
+ALTER TABLE `databeli` ADD FULLTEXT KEY `kode_brg` (`kode_brg`);
+
+--
+-- Indexes for table `dbrg`
+--
+ALTER TABLE `dbrg`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `detail`
+--
+ALTER TABLE `detail`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `d_prod`
 --
 ALTER TABLE `d_prod`
   ADD PRIMARY KEY (`id_prod_d`);
 
 --
+-- Indexes for table `header`
+--
+ALTER TABLE `header`
+  ADD PRIMARY KEY (`no_nota`);
+
+--
 -- Indexes for table `kota`
 --
 ALTER TABLE `kota`
   ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `mbarang`
+--
+ALTER TABLE `mbarang`
+  ADD PRIMARY KEY (`kode_brg`) USING BTREE;
+ALTER TABLE `mbarang` ADD FULLTEXT KEY `nama` (`nama`);
+ALTER TABLE `mbarang` ADD FULLTEXT KEY `kode_klp` (`kode_klp`);
+
+--
+-- Indexes for table `msupl`
+--
+ALTER TABLE `msupl`
+  ADD PRIMARY KEY (`kode_supl`) USING BTREE;
+ALTER TABLE `msupl` ADD FULLTEXT KEY `nama` (`nama`);
 
 --
 -- Indexes for table `m_country`
@@ -1017,6 +1370,15 @@ ALTER TABLE `m_country`
 --
 ALTER TABLE `negara`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notabeli`
+--
+ALTER TABLE `notabeli`
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD UNIQUE KEY `no_nota` (`no_nota`) USING BTREE,
+  ADD KEY `tanggal` (`tanggal`) USING BTREE;
+ALTER TABLE `notabeli` ADD FULLTEXT KEY `kode_supl` (`kode_supl`);
 
 --
 -- Indexes for table `prds`
@@ -1049,6 +1411,12 @@ ALTER TABLE `provinsi`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `svbrg`
+--
+ALTER TABLE `svbrg`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `wilayah`
 --
 ALTER TABLE `wilayah`
@@ -1057,6 +1425,24 @@ ALTER TABLE `wilayah`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `barang_header`
+--
+ALTER TABLE `barang_header`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `dbrg`
+--
+ALTER TABLE `dbrg`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `detail`
+--
+ALTER TABLE `detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `d_prod`
@@ -1075,6 +1461,12 @@ ALTER TABLE `kota`
 --
 ALTER TABLE `negara`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `notabeli`
+--
+ALTER TABLE `notabeli`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `prds`
@@ -1105,6 +1497,12 @@ ALTER TABLE `prod_h`
 --
 ALTER TABLE `provinsi`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `svbrg`
+--
+ALTER TABLE `svbrg`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `wilayah`
